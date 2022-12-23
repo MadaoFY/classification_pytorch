@@ -104,10 +104,10 @@ if __name__ == '__main__':
     # 权重
     parser.add_argument('--weights', default='./models_save/cspconvnext_t_165_0.71224.pth',
                         help='模型文件地址; pth,pt,onnx模型')
-    # 测试集
-    parser.add_argument('--test_dir', default='./Caltech_256/test.csv', help='测试集文档')
     # 测试集图片的文件夹
     parser.add_argument('--img_dir', default='./Caltech_256/test/', help='训练所用图片根目录')
+    # 测试集
+    parser.add_argument('--test_dir', default='./Caltech_256/test.csv', help='测试集文档')
     # submission保存位置
     parser.add_argument('--submission_save_dir', default='./sub.csv', help='submission保存地址')
     # batch_size

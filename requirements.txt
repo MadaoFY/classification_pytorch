@@ -1,0 +1,17 @@
+# Usage: pip install -r requirements.txt
+
+# Base ----------------------------------------
+torch   # https://pytorch.org/
+torchvision
+timm
+albumentations
+numpy>=1.21.0
+pandas>=1.3.0
+tqdm>=4.64.0
+opencv-python>=4.1.1
+
+# Export --------------------------------------
+onnx>=1.9.0  # ONNX export
+
+# infer ----------------------------------------
+onnxruntime-gpu

@@ -112,10 +112,15 @@ if __name__ == '__main__':
     # 数据集下载地址 Caltech_256：https://data.caltech.edu/records/20087
 
     # 需要设置的参数
+    # Caltech_256数据路径，下载后解压可得到 "256_ObjectCategories" 文件，因此这里默认设置 './256_ObjectCategories/'
     origin_dir = './256_ObjectCategories/'
+    # 划分后数据存放的位置，你可以按自己的需求进行设置，这里我创建了 "Caltech_256" 文件夹来放置清洗、划分后的数据
     new_dir = './Caltech_256/'
+    # 验证集划分参数，建议不用修改
     val_step = 8
+    # 是否对短边进行缩放
     resize_short_edge = True
+    # 短边缩放值，长边会同比缩放
     short_edge_size = 240
 
     # 对下载好的数据集进行整理和移动

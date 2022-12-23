@@ -138,12 +138,12 @@ if __name__ == "__main__":
 
     # 训练设备类型
     parser.add_argument('--device', default='cuda', help='训练设备类型')
+    # 训练所需图片的根目录
+    parser.add_argument('--img_dir', default='./Caltech_256/train/', help='训练所用图片根目录')
     # 训练集
     parser.add_argument('--train_dir', default='./Caltech_256/train.csv', help='训练集文档')
     # 验证集
     parser.add_argument('--valid_dir', default='./Caltech_256/val.csv', help='验证集文档')
-    # 训练所需图片的根目录
-    parser.add_argument('--img_dir', default='./Caltech_256/train/', help='训练所用图片根目录')
     # 图片的size
     parser.add_argument('--img_sz', type=int, default=224, help='train, val image size (pixels)')
     # 训练信息保存位置
