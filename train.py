@@ -149,8 +149,7 @@ if __name__ == "__main__":
     # 训练信息保存位置
     parser.add_argument('--log_save_dir', default=None, help='tensorboard信息保存地址')
     # 模型权重保存地址
-    parser.add_argument('--model_save_dir', default='./models_save/cspconvnext_t',
-                        help='模型权重保存地址')
+    parser.add_argument('--model_save_dir', default='./models_save/cspconvnext_t', help='模型权重保存地址')
     # 学习率
     parser.add_argument('--lr', type=float, default=0.0005,
                         help='initial learning rate, 0.001 is the default value for training')
