@@ -82,6 +82,7 @@ def main(args):
         predictions = predictions.cpu()
 
     else:
+        # 计划增加tensort推理
         pass
 
     submission['prediction'] = predictions.tolist()
