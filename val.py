@@ -25,8 +25,8 @@ def val_transform():
 
 
 def main(args):
-    img_dir = os.path.join(args.img_dir)  # '../images/'
-    val = pd.read_csv(args.val_dir)   # '../test.csv'
+    img_dir = os.path.join(args.img_dir)  # './Caltech_256/'
+    val = pd.read_csv(args.val_dir)   # './test.csv'
     submission = val.copy()
 
     val_dataset = ReadDataSet(val, img_dir, val_transform())
