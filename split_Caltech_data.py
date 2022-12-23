@@ -56,7 +56,6 @@ def split_data(data, step=8, test_nums=13000):
 def main(origin_dir, new_dir, csv_save_dir=None, val_step=8, resize_short_edge=False, short_edge_size=256):
 
     """
-
     origin_dir: 数据集图片的原始位置
     new_dir: 图片将要复制到的位置
     csv_save_dir: 训练集、验证集、测试集的csv文件保存的文件夹，默认保存在new_dir目录
@@ -100,7 +99,7 @@ def main(origin_dir, new_dir, csv_save_dir=None, val_step=8, resize_short_edge=F
     if csv_save_dir is None:
         csv_save_dir = new_dir
 
-    # 导出成csv文件保存
+    # 导出成csv文件保存数据集信息
     train.to_csv(f'{csv_save_dir}/train.csv', index=False)
     val.to_csv(f'{csv_save_dir}/val.csv', index=False)
     test.to_csv(f'{csv_save_dir}/test.csv', index=False)
