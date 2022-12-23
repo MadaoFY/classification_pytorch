@@ -11,8 +11,8 @@ from utils.general import resize_image
 
 def copy_objectcategories(origin_dir, new_dir):
 
-    origin_dir = origin_dir  # '../256_ObjectCategories/'
-    new_dir = new_dir  # '../images/'
+    origin_dir = origin_dir  # './256_ObjectCategories/'
+    new_dir = new_dir  # './Caltech_256/'
     img_list = []
     print('Start copy images...')
     for i in tqdm(os.listdir(origin_dir)):
