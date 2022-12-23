@@ -5,7 +5,9 @@
  ### 环境搭建
  ```bash
 git clone https://github.com/MadaoFY/classification_pytorch.git # clone
+
 cd classification_pytorch
+
 pip install -r requirements.txt  # install
 ```
 
