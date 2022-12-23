@@ -1,4 +1,5 @@
 import os
+import time
 import timm
 import torch
 import onnxruntime
@@ -25,8 +26,8 @@ def val_transform():
 
 
 def main(args):
-    img_dir = os.path.join(args.img_dir)  # './Caltech_256/'
-    val = pd.read_csv(args.val_dir)   # './test.csv'
+    img_dir = os.path.join(args.img_dir)
+    val = pd.read_csv(args.val_dir)
     submission = val.copy()
 
     val_dataset = ReadDataSet(val, img_dir, val_transform())
@@ -43,6 +44,7 @@ def main(args):
     assert last_name in ['.pth', '.pt', '.onnx'], f"weights file attribute is {last_name}, not in [.pth , .pt, .onnx]."
 
     if last_name == '.onnx':
+        print('Onnx inference')
         model = onnxruntime.InferenceSession(
             weights,
             providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
@@ -58,7 +60,9 @@ def main(args):
             predictions = np.concatenate((predictions, pred))
             labels = np.concatenate((labels, label))
 
+
     elif last_name in ['.pth', '.pt']:
+        print('Pytorch inference')
         models_dict = {
             'cspconvnext_t': cspconvnext_t,
             'cspconvnext_s': cspconvnext_s
@@ -82,7 +86,9 @@ def main(args):
             pred = pred.argmax(dim=-1)
             predictions = torch.cat([predictions, pred])
             labels = torch.cat([labels, label])
+
         predictions = predictions.cpu()
+
 
     else:
         pass
@@ -107,12 +113,12 @@ if __name__ == '__main__':
     parser.add_argument("--model", type=str, default='cspconvnext_t', choices=['cspconvnext_t', 'cspconvnext_s'],
                         help="模型选择")
     # 权重
-    parser.add_argument('--weights', default='./models_save/cspconvnext_t_165_0.71224.pth',
+    parser.add_argument('--weights', default='./models_save/cspconvnext_t_165_0.71224.onnx',
                         help='模型文件地址; pth,pt,onnx模型')
     # 验证集
-    parser.add_argument('--val_dir', default='./test.csv', help='验证集文档')
+    parser.add_argument('--val_dir', default='./Caltech_256/test.csv', help='验证集文档')
     # 推理所需图片的根目录
-    parser.add_argument('--img_dir', default='./Caltech_256/', help='训练所用图片根目录')
+    parser.add_argument('--img_dir', default='./Caltech_256/test/', help='训练所用图片根目录')
     # submission保存位置
     parser.add_argument('--submission_save_dir', default=None, help='submission保存地址')
     # batch_size

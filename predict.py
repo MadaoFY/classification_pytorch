@@ -2,7 +2,6 @@ import os
 import timm
 import torch
 import onnxruntime
-import cv2 as cv
 import numpy as np
 import pandas as pd
 import albumentations as A
@@ -27,8 +26,8 @@ def test_transform():
 
 
 def main(args):
-    img_dir = os.path.join(args.img_dir)  # './Caltech_256/'
-    test = pd.read_csv(args.test_dir)   # './test.csv'
+    img_dir = os.path.join(args.img_dir)
+    test = pd.read_csv(args.test_dir)
     submission = test.copy()
 
     test_dataset = ReadDataSet(test, img_dir, test_transform(), test=True)
@@ -43,6 +42,7 @@ def main(args):
     last_name = os.path.splitext(weights)[-1]
     assert last_name in ['.pth', '.pt', '.onnx'], f"weights file attribute is {last_name}, not in [.pth , .pt, .onnx]."
     if last_name == '.onnx':
+        print('Onnx inference')
         model = onnxruntime.InferenceSession(
             weights,
             providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
@@ -56,7 +56,9 @@ def main(args):
             pred = pred[0].argmax(axis=1)
             predictions = np.concatenate((predictions, pred))
 
-    elif last_name in ['.pth', 'pt']:
+
+    elif last_name in ['.pth', '.pt']:
+        print('Pytorch inference')
         models_dict = {
             'cspconvnext_t': cspconvnext_t,
             'cspconvnext_s': cspconvnext_s
@@ -103,9 +105,9 @@ if __name__ == '__main__':
     parser.add_argument('--weights', default='./models_save/cspconvnext_t_165_0.71224.pth',
                         help='模型文件地址; pth,pt,onnx模型')
     # 测试集
-    parser.add_argument('--test_dir', default='./test.csv', help='测试集文档')
+    parser.add_argument('--test_dir', default='./Caltech_256/test.csv', help='测试集文档')
     # 测试集图片的文件夹
-    parser.add_argument('--img_dir', default='./Caltech_256/', help='训练所用图片根目录')
+    parser.add_argument('--img_dir', default='./Caltech_256/test/', help='训练所用图片根目录')
     # submission保存位置
     parser.add_argument('--submission_save_dir', default='./sub.csv', help='submission保存地址')
     # batch_size
