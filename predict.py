@@ -27,8 +27,8 @@ def test_transform():
 
 
 def main(args):
-    img_dir = os.path.join(args.img_dir)  # '../images/'
-    test = pd.read_csv(args.test_dir)   # '../test.csv'
+    img_dir = os.path.join(args.img_dir)  # './Caltech_256/'
+    test = pd.read_csv(args.test_dir)   # './test.csv'
     submission = test.copy()
 
     test_dataset = ReadDataSet(test, img_dir, test_transform(), test=True)
