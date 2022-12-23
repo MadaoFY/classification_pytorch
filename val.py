@@ -89,8 +89,8 @@ def main(args):
 
         predictions = predictions.cpu()
 
-
     else:
+        # 计划增加tensort推理
         pass
 
     acc = sum(predictions == labels) / len(labels) * 100
