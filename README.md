@@ -82,7 +82,7 @@ predict.py脚本用于测试集没有标签的情况下，导出预测结果，�
 
 ### 其他
 
-模型搭建参考
+个人的模型搭建参考
 
 mobilenetv2：https://arxiv.org/abs/1801.04381
 
