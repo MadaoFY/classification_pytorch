@@ -10,7 +10,7 @@ __all__ = [
 
 
 class ReadDataSet(Dataset):
-    r"""
+    """
     参数说明：
         data_file：记录图片信息的csv文档，要求第一列为图片路径，第二列为图片的标签。
         img_dir：图片所在的文件夹路径。
