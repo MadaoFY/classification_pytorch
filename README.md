@@ -73,8 +73,8 @@ parser.add_argument('--lr', type=float, default=0.0005, help='initial learning r
 
 
 ### 验证或预测(```val.py、predict.py```)
-val.py脚本用于对训练好的模型进行验证（acc1），支持onnx模型，你可以验证onnx模型的预测精度。  
-运行后返回预测精确，若设置```--submission_save_dir```参数，将导出每个样本的预测结果，更多参数可以在脚本中查看。  
+val.py脚本用于对训练好的模型进行验证（acc1），支持onnx模型，你可以验证onnx模型的预测准确度。  
+运行后返回预测准确度，若设置```--submission_save_dir```参数，将导出每个样本的预测结果，更多参数可以在脚本中查看。  
 ```bash
 python val.py --model cspconvnext_t --weights ./models_save/cspconvnext_t_165_0.71224.pth --img_dir ./Caltech_256/test/ --val_dir ./Caltech_256/test.csv -num_classes 257
 ```
