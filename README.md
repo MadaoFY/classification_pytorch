@@ -1,6 +1,5 @@
 # classification_pytorch
  个人利用pytorch魔改、搭建的分类网络，利用CSPnet的思想对resnet进行了重构，并且尝试搭建了一个自己的分类网络，当然你也可以从torchvision或者timm中导入分类网络来进行模型的训练。这里提供了训练、验证、onnx模型导出的代码，你可以使用 Caltech_256 数据集，按照使用演示的步骤来跑通整个过程。
-
  
  ### 环境搭建
  ```bash
@@ -18,7 +17,8 @@ Caltech_256：https://data.caltech.edu/records/20087
 ### 数据清洗及训练集、验证集、测试集的划分(```split_Caltech_data.py```)
 假设你已经完成Caltech_256数据集的下载，我们需要对数据进行清洗及划分，直接运行split_Caltech_data.py脚本即可得到清洗和划分好的数据集，同时会生成train.csv、val.csv、test.csv文件用于之后的训练和验证，目前已存在于项目里的Caltech_256文件夹。
 
-split_Caltech_data.py脚本只用来对Caltech_256进行清洗和划分，如果是训练其他的数据集，你需要自己对数据集进行划分,并且数据集表格式要参考train.csv文件。
+split_Caltech_data.py脚本只是用来对Caltech_256进行清洗和划分，如果是训练其他的数据集，你需要自己对数据集进行划分，并且数据表格式要参考train.csv文件，第一列表头img，记录每张图片的名称，第二列表头label，记录每张图片的类别id。  
+打开脚本确认以下参数后运行。  
 ```python
 # Caltech_256数据路径，下载后解压可得到 "256_ObjectCategories" 文件，因此这里默认设置 './256_ObjectCategories/'
 origin_dir = './256_ObjectCategories/'
@@ -31,8 +31,8 @@ resize_short_edge = True
 # 短边缩放值，长边会同比缩放
 short_edge_size = 240
 ```
-划分后文件格式可参考如下：
-```
+划分后文件存放形式如下：
+```bash
 |-Caltech_256
     |-train.csv
     |-val.csv
@@ -70,16 +70,31 @@ parser.add_argument('--model_save_dir', default='./models_save/cspconvnext_t', h
 parser.add_argument('--lr', type=float, default=0.0005, help='initial learning rate, 0.001 is the default value for training')
 ```
 脚本的第17行为数据增强的相关代码，99行为optimizer相关代码，你可以根据自己的需求进行修改。
-
+```python
+def train_transform():
+    transforms = []
+    transforms.append(A.RandomResizedCrop(args.img_sz, args.img_sz, scale=(0.2, 1), interpolation=2, p=1))
+    transforms.append(A.OneOf([
+        A.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.2, p=1),
+        A.RandomBrightnessContrast(p=1)
+    ], p=0.5))
+```
+```python
+# 创建优化器
+    optimizer = torch.optim.AdamW(
+        filter(lambda p: p.requires_grad, model.parameters()), lr=lr,
+        betas=(0.9, 0.999), weight_decay=weight_decay
+    )
+```
 
 ### 验证或预测(```val.py、predict.py```)
-val.py脚本用于对训练好的模型进行验证（acc1），支持onnx模型，你可以验证onnx模型的预测准确度。  
+val.py脚本用于对训练好的模型进行验证(acc1)，支持onnx模型，你可以验证onnx模型的预测准确度。  
 运行后返回预测准确度，若设置```--submission_save_dir```参数，将导出每个样本的预测结果，更多参数可以在脚本中查看。  
 ```bash
 python val.py --model cspconvnext_t --weights ./models_save/cspconvnext_t_165_0.71224.pth --img_dir ./Caltech_256/test/ --val_dir ./Caltech_256/test.csv -num_classes 257
 ```
 
-predict.py脚本用于测试集没有标签的情况下，导出预测结果，默认导出文件名为sub.csv，这里你必须设置```--submission_save_dir```参数。
+predict.py脚本用于测试集没有标签的情况下，导出预测结果，默认导出文件名为sub.csv，这里你必须设置```--submission_save_dir```参数以生成结果表。
 ```bash
 python predict.py --model cspconvnext_t --weights ./models_save/cspconvnext_t_165_0.71224.pth --img_dir ./Caltech_256/test/ --val_dir ./Caltech_256/test.csv -num_classes 257 --submission_save_dir sub.csv
 ```
