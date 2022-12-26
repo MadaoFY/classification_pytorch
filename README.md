@@ -14,8 +14,8 @@ pip install -r requirements.txt  # install
 ### 数据集下载
 Caltech_256：https://data.caltech.edu/records/20087
 
-### 训练步骤
-#### 1、数据清洗及训练集、验证集、测试集的划分(split_Caltech_data.py)
+### 使用演示
+#### 数据清洗及训练集、验证集、测试集的划分(split_Caltech_data.py)
 假设你已经完成Caltech_256数据集的下载，我们需要对数据进行清洗及划分，直接运行split_Caltech_data.py脚本即可得到清洗和划分好的数据集，同时会生成train.csv、val.csv、test.csv文件用于之后的训练和验证，目前已存在于项目里的Caltech_256文件夹。
 
 split_Caltech_data.py脚本只用来对Caltech_256进行清洗和划分，如果是训练其他的数据集，你需要自己对数据集进行划分,并且数据集表格式要参考train.csv文件。
