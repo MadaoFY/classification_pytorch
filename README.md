@@ -15,7 +15,7 @@ pip install -r requirements.txt  # install
 Caltech_256：https://data.caltech.edu/records/20087
 
 ## 使用演示
-### 数据清洗及训练集、验证集、测试集的划分(split_Caltech_data.py)
+### 数据清洗及训练集、验证集、测试集的划分(```split_Caltech_data.py```)
 假设你已经完成Caltech_256数据集的下载，我们需要对数据进行清洗及划分，直接运行split_Caltech_data.py脚本即可得到清洗和划分好的数据集，同时会生成train.csv、val.csv、test.csv文件用于之后的训练和验证，目前已存在于项目里的Caltech_256文件夹。
 
 split_Caltech_data.py脚本只用来对Caltech_256进行清洗和划分，如果是训练其他的数据集，你需要自己对数据集进行划分,并且数据集表格式要参考train.csv文件。
@@ -49,7 +49,7 @@ short_edge_size = 240
         |-...
 ```
 
-### 训练(train.py)
+### 训练(```train.py```)
 假设你已经完成数据集的清洗和划分，并且生成了train.csv、val.csv文件，打开train.py脚本确认参数后即可运行，部分参数如下。
 ```python
 # 训练设备类型
@@ -72,13 +72,13 @@ parser.add_argument('--lr', type=float, default=0.0005, help='initial learning r
 脚本的第17行为数据增强的相关代码，99行为optimizer相关代码，你可以根据自己的需求进行修改。
 
 
-### 验证或预测(val.py、predict.py)
+### 验证或预测(```val.py、predict.py```)
 使用val.py脚本对训练好的模型进行验证（acc1），支持onnx模型，你可以验证onnx模型的预测精度。
 
 predict.py脚本用于测试集没有标签的情况下，导出预测结果，默认导出文件名为sub.csv。
 
 
-### 导出onnx模型(onnx_port.py)
+### 导出onnx模型(```onnx_port.py```)
 如果你需要onnx模型，可使用onnx_port.py脚本。
 
 
