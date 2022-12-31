@@ -50,7 +50,7 @@ short_edge_size = 240
 ```
 
 ### 训练(```train.py```)
-假设你已经完成数据集的清洗和划分，并且生成了train.csv、val.csv文件，打开train.py脚本确认参数后即可运行，部分参数如下。
+假设你已经完成数据集的清洗和划分，并且生成了train.csv、val.csv文件，打开train.py脚本确认参数后即可运行，部分参数如下。该数据集在默认参数下运行180epoch可达到最佳准确率，约71%。
 ```python
 # 训练设备类型
 parser.add_argument('--device', default='cuda', help='训练设备类型')
