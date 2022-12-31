@@ -107,13 +107,11 @@ python predict.py --model cspconvnext_t --weights ./models_save/cspconvnext_t_16
 
 个人的模型搭建参考
 
-mobilenetv2：https://arxiv.org/abs/1801.04381
+mobilenetv2：https://arxiv.org/abs/1801.04381  
+https://www.bilibili.com/video/BV1AL411G77N/?share_source=copy_web&vd_source=a9ba073ab382750dccbe80bc2c691e91
 
-https://www.bilibili.com/video/BV1AL411G77N/?spm_id_from=333.999.0.0&vd_source=23508829e27bce925740f90e5cd28cf3
 
-
-ConvNeXt：https://arxiv.org/abs/2201.03545
-
+ConvNeXt：https://arxiv.org/abs/2201.03545  
 https://blog.csdn.net/m0_61899108/article/details/122801668?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EESLANDING%7Edefault-2-122801668-blog-126072800.pc_relevant_multi_platform_whitelistv4eslandingctr&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EESLANDING%7Edefault-2-122801668-blog-126072800.pc_relevant_multi_platform_whitelistv4eslandingctr&utm_relevant_index=5
 
 
