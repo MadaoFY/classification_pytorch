@@ -97,10 +97,7 @@ class convnext(nn.Module):
                         nn.init.constant_(m.weight, 1)
                     if m.bias is not None:
                         nn.init.constant_(m.bias, 0)
-            # elif isinstance(m, (nn.Linear,)):
-            #     nn.init.trunc_normal_(m.weight, mean=0.0, std=0.01)
-            #     if m.bias is not None:
-            #         nn.init.zeros_(m.bias)
+
 
     def _make_layer(self, dim, groups, n, downsample=True):
         return self.blk(dim, groups, n, downsample)
@@ -148,5 +145,4 @@ def cspconvnext_s(num_classes=1000, dim=96, groups=48):
 if __name__ == '__main__':
     model = cspconvnext_t()
     # print(model.state_dict())
-
     print(model)

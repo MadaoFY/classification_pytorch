@@ -1,7 +1,6 @@
 import os
 import math
 import torch
-import cv2 as cv
 import numpy as np
 
 from tqdm import tqdm
@@ -30,7 +29,7 @@ def train_classify(
         log_save_dir=None,
         model_save_epochs=None,
         mixup=False,
-        gpu='cuda',
+        device='cuda',
         fp16=True
 ):
 
@@ -38,7 +37,7 @@ def train_classify(
         writer = SummaryWriter(log_save_dir)
 
     best_acc = 0.0
-    device = torch.device(gpu) if torch.cuda.is_available() else torch.device('cpu')
+    device = torch.device(device) if torch.cuda.is_available() else torch.device('cpu')
     model = model.to(device)
     loss = loss.to(device)
     # origin_loss = loss.to(device)

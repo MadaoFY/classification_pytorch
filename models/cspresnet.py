@@ -22,7 +22,6 @@ class bottleneck(nn.Module):
             nn.ReLU(inplace=True),
             nn.Conv2d(out_chs, out_chs * self.expansion, kernel_size=1, stride=1, bias=False),
             nn.BatchNorm2d(out_chs * self.expansion),
-            # nn.ReLU(inplace=True)
         )
 
         if downsample:

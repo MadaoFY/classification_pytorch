@@ -55,7 +55,9 @@ def main(args):
     valid = pd.read_csv(args.valid_dir)
     img_dir = os.path.join(args.img_dir)
 
-    train_dataset = ReadDataSet(train, img_dir, train_transform(), repeat=True)
+    # 是否使用repeat方法
+    repeat = args.repeat
+    train_dataset = ReadDataSet(train, img_dir, train_transform(), repeat=repeat)
     val_dataset = ReadDataSet(valid, img_dir, val_transform())
 
     # 设置batch大小
@@ -125,7 +127,7 @@ def main(args):
         log_save_dir=args.log_save_dir,
         model_save_epochs=args.model_save_epochs,
         mixup=args.mixup,
-        gpu=args.device,
+        device=args.device,
         fp16=fp16
     )
     print(f'{epochs} epochs completed in {(time.time() - start) / 3600.:.3f} hours.')
@@ -158,7 +160,7 @@ if __name__ == "__main__":
     # 优化器的weight_decay参数
     parser.add_argument('--weight-decay', type=float, default=0.05, metavar='W', help='weight decay')
     # 训练的batch_size
-    parser.add_argument('--batch_size', type=int, default=384, metavar='N', help='batch size when training')
+    parser.add_argument('--batch_size', type=int, default=256, metavar='N', help='batch size when training')
     # 训练时是否使用repeat方法拓展数据集
     parser.add_argument('--repeat', type=bool, default=True, choices=[True, False], help='将训练集的一张图片复制成4张')
     # 训练时是否使用mixup方法
